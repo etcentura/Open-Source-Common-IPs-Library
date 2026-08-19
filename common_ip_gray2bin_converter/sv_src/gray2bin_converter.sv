@@ -1,4 +1,4 @@
-module jpeg_gray2bin_converter
+module gray2bin_converter
 #
 (
     parameter		DWIDTH =    8
