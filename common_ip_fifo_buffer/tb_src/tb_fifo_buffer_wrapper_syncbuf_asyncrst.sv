@@ -16,21 +16,15 @@ parameter       int                 MAX_WORDS   =   2**AWIDTH   ;
 logic                               rst_n                       ;
 
 logic		                        clk                         ;
-// logic		                        clk_write               ;
 logic		                        enable_write                ;
 logic		    [DWIDTH - 1 : 0] 	data_write                  ;
 logic                               flag_full                   ;
-logic 	        [AWIDTH - 1 : 0] 	flag_afull_thrsh            ;
-logic 	                            flag_afull                  ;
 logic 	                            rst_n_synched_write         ;
 
-// logic		                        clk_read                ;
 logic		                        enable_read                 ;
 logic		    [DWIDTH - 1 : 0] 	data_read                   ;
 logic		                        flag_empty                  ;
 logic		                        valid_read                  ;
-logic 	        [AWIDTH - 1 : 0] 	flag_aempty_thrsh           ;
-logic 	                            flag_aempty                 ;
 logic 	                            rst_n_synched_read          ;
 
 //Queue to store 
@@ -61,8 +55,6 @@ fifo_buffer_wrapper
     .enable_write           (enable_write           ),
     .data_write             (data_write             ),
     .flag_full              (flag_full              ),
-    .flag_afull_thrsh       (flag_afull_thrsh       ),
-    .flag_afull             (flag_afull             ),
     .rst_n_synched_write    (rst_n_synched_write    ),
 
     
@@ -72,8 +64,6 @@ fifo_buffer_wrapper
     .data_read              (data_read              ),
     .flag_empty             (flag_empty             ),
     .valid_read             (valid_read             ),
-    .flag_aempty_thrsh      (flag_aempty_thrsh      ),
-    .flag_aempty            (flag_aempty            ),
     .rst_n_synched_read     (rst_n_synched_read     )
 );
 //End of instancing module section section

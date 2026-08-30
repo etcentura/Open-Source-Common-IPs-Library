@@ -16,8 +16,6 @@ module fifo_buffer_wrapper
     input		logic		                    enable_write        ,
     input		logic		[DWIDTH - 1 : 0] 	data_write          ,
     output		logic                           flag_full           ,
-    input 	    logic 	    [AWIDTH - 1 : 0] 	flag_afull_thrsh    ,
-    output      logic 	                        flag_afull          ,
     output      logic 	                        rst_n_synched_write ,
 
     
@@ -27,8 +25,6 @@ module fifo_buffer_wrapper
     output		logic		[DWIDTH - 1 : 0] 	data_read           ,
     output		logic		                    flag_empty          ,
     output		logic		                    valid_read          ,
-    input 	    logic 	    [AWIDTH - 1 : 0] 	flag_aempty_thrsh   ,
-    output      logic 	                        flag_aempty         ,
     output      logic 	                        rst_n_synched_read  
 );
 
