@@ -4,7 +4,7 @@ module fifo_buffer_wrapper
     parameter		int     DWIDTH		=	8                   ,
     parameter		int     AWIDTH		=	8                   ,
     parameter		int     FIFO_STYLE  =	0                   ,   //0 - SCFIFO, 1 - DCFIFO
-    parameter       int     SYNC_RSTN   =   0                   ,   //0 - async reset, 1 - synced to both write and read separately
+    parameter       int     SYNC_RSTN   =   0                       //0 - async reset, 1 - synced to both write and read separately
 )
 
 (
@@ -29,7 +29,7 @@ module fifo_buffer_wrapper
     output		logic		                    valid_read          ,
     input 	    logic 	    [AWIDTH - 1 : 0] 	flag_aempty_thrsh   ,
     output      logic 	                        flag_aempty         ,
-    output      logic 	                        rst_n_synched_read  ,
+    output      logic 	                        rst_n_synched_read  
 );
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -83,7 +83,7 @@ end
 //Begin of driving data into the memory section
 always_ff @(posedge clk_write)
 begin
-    if(!rst_n_write)
+    if(rst_n_synched_write)
         begin
             int_write_pointer <= '0;
         end
@@ -164,7 +164,7 @@ endgenerate
 //Begin of driving data from the memory section
 always_ff @(posedge clk_read)
 begin
-    if(!rst_n_read)
+    if(rst_n_synched_read)
         begin
             int_read_pointer <= '0;
         end
@@ -188,7 +188,6 @@ end
 //End of driving data from the memory section
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 //Begin of outputting data section
 always_ff @(posedge clk_read)
@@ -198,7 +197,6 @@ begin
 end
 //End of outputting data section
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 //Begin of resync of read pointer section
@@ -299,7 +297,7 @@ endgenerate
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-//Begin of name section
+//Begin of driving rst handling section
 generate
     if (SYNC_RSTN == 1) begin
         signal_synchronizer
@@ -346,6 +344,6 @@ generate
         end
     end
 endgenerate
-//End of name section
+//End of driving rst handling section
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 endmodule
