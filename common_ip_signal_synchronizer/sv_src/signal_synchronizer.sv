@@ -22,22 +22,6 @@ logic		[SYNCWIDTH - 1 : 0] 	reg_dst [SYNCSTEPS]     ;
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-//Begin of checking input parameters secntion section
-initial begin
-    if(SYNCWIDTH <= 1) begin
-        $error("Parameter SYNCWIDTH must NOT be more than 1");
-    end
-    $display("%m setup with parameter SYNCWIDTH         : %d", SYNCWIDTH    );
-
-    if(SYNCSTEPS <= 0) begin
-        $error("Parameter SYNCWSYNCSTEPSIDTH must NOT be equal or less than 0");
-    end
-    $display("%m setup with parameter SYNCSTEPS         : %d", SYNCSTEPS    );
-end
-//End of checking input parameters secntion section
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 //Begin of latching data by source reg section
 always_ff @(posedge clk_src)
 begin
